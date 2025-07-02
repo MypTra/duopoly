@@ -1,7 +1,5 @@
 // lib/widgets/player_hub.dart
 
-// ignore_for_file: deprecated_member_use
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/player.dart';
@@ -11,7 +9,6 @@ import '../widgets/property_management_sheet.dart';
 class PlayerHub extends StatelessWidget {
   final Player player;
   
-  // 'alignment' parametresini gereksiz olduğu için tamamen kaldırdık.
   const PlayerHub({
     super.key,
     required this.player,
@@ -32,7 +29,6 @@ class PlayerHub extends StatelessWidget {
             maxChildSize: 0.9,
             minChildSize: 0.4,
             builder: (BuildContext context, ScrollController scrollController) {
-              // Bu çağrı artık hatasız olmalı
               return PropertyManagementSheet(controller: scrollController);
             },
           ),
@@ -49,10 +45,10 @@ class PlayerHub extends StatelessWidget {
     final isCurrentPlayer = gameState.currentPlayer == player;
 
     return Container(
-      width: 140,
+      width: 160,
       padding: const EdgeInsets.all(8.0),
       decoration: BoxDecoration(
-        color: player.color.withAlpha(220), // Deprecated uyarı düzeltildi
+        color: player.color.withAlpha(230),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
         border: Border.all(
           color: isCurrentPlayer ? Colors.yellow.shade600 : Colors.white.withOpacity(0.7),
@@ -70,18 +66,11 @@ class PlayerHub extends StatelessWidget {
               children: [
                 Text(
                   player.name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 Text(
                   '${player.money} TL',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                  ),
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
                 ),
                 if (isCurrentPlayer) ...[
                   const Divider(color: Colors.white54, height: 12, thickness: 1),
@@ -160,7 +149,7 @@ class PlayerHub extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           child: ElevatedButton(
-            onPressed: !gameState.isDiceAnimating ? () => gameActions.payToGetOutOfJail() : null,
+            onPressed: !gameState.isDiceAnimating && player.money >= 50 ? () => gameActions.payToGetOutOfJail() : null,
             child: const Text('50 TL Öde'),
           ),
         ),

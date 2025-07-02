@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_monopoly/providers/game_state.dart';
 import 'package:flutter_monopoly/screens/start_screen.dart';
-import 'package:google_fonts/google_fonts.dart'; // Google Fonts paketini import et
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Temel temayı oluşturup üzerine Google Fonts'u uyguluyoruz
     final textTheme = Theme.of(context).textTheme;
 
     return MaterialApp(
@@ -29,7 +28,6 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         primaryColor: const Color(0xFF1a237e),
         scaffoldBackgroundColor: const Color(0xFF0d1117),
-        // YENİ: Tüm metin stillerini Lato fontu ile güncelliyoruz
         textTheme: GoogleFonts.latoTextTheme(textTheme).copyWith(
           displayLarge: GoogleFonts.cinzel(textStyle: textTheme.displayLarge, color: Colors.white, fontWeight: FontWeight.bold),
           titleLarge: GoogleFonts.lato(textStyle: textTheme.titleLarge, color: Colors.white70, fontWeight: FontWeight.w600),

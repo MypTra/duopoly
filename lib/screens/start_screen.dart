@@ -36,7 +36,7 @@ class _StartScreenState extends State<StartScreen> {
     bool hasBot = _playWithBot;
 
     if (_playWithBot) {
-      playerNames = [_nameControllers[0].text, 'Bot'];
+      playerNames = [_nameControllers[0].text.trim(), 'Bot'];
     } else {
       playerNames = List.generate(
         _selectedPlayerCount,
@@ -47,36 +47,28 @@ class _StartScreenState extends State<StartScreen> {
     }
 
     context.read<GameState>().startGame(playerNames: playerNames, hasBot: hasBot);
-    Navigator.push(
+    Navigator.pushReplacement( // Geri dönmeyi engellemek için pushReplacement
       context,
       MaterialPageRoute(builder: (context) => const GameBoardScreen()),
     );
   }
 
-  // --- YENİ: Profesyonel Metin Giriş Alanı Widget'ı ---
   Widget _buildPlayerNameField(int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 8),
       child: TextField(
         controller: _nameControllers[index],
         textAlign: TextAlign.center,
-        style: const TextStyle(color: Colors.white, fontSize: 18), // Yazı rengi ve boyutu
+        style: const TextStyle(color: Colors.white, fontSize: 18),
         decoration: InputDecoration(
-          // Metin alanı arka planı
           filled: true,
           fillColor: Colors.black.withOpacity(0.3),
-          
-          // İpucu metni stili
           hintText: 'Oyuncu ${index + 1} İsmi',
           hintStyle: TextStyle(color: Colors.grey[400]),
-          
-          // Normal kenarlık
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.0),
             borderSide: BorderSide(color: Colors.blueGrey[700]!, width: 1.5),
           ),
-          
-          // Tıklanınca oluşan kenarlık
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.0),
             borderSide: const BorderSide(color: Color(0xFF536dfe), width: 2.0),
@@ -88,9 +80,8 @@ class _StartScreenState extends State<StartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // --- GÜNCELLENDİ: Ana arkaplan rengi ve genel tema ---
     return Scaffold(
-      backgroundColor: const Color(0xFF1a2a4e), // Koyu ve modern bir arkaplan
+      backgroundColor: const Color(0xFF1a2a4e),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -103,7 +94,6 @@ class _StartScreenState extends State<StartScreen> {
                 Text('DUOPOLY', style: Theme.of(context).textTheme.displayLarge),
                 const SizedBox(height: 40),
                 
-                // --- GÜNCELLENDİ: Switch stili ---
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                   decoration: BoxDecoration(
@@ -137,7 +127,6 @@ class _StartScreenState extends State<StartScreen> {
                     children: [2, 3, 4].map((count) {
                       return Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        // --- GÜNCELLENDİ: Chip stili ---
                         child: ChoiceChip(
                           label: Text('$count Oyuncu', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                           selected: _selectedPlayerCount == count,
@@ -156,14 +145,12 @@ class _StartScreenState extends State<StartScreen> {
                 ],
                 const SizedBox(height: 30),
                 
-                // --- GÜNCELLENDİ: İsim girdileri yeni widget ile oluşturuluyor ---
                 ...List.generate(_playWithBot ? 1 : _selectedPlayerCount, (index) {
                   return _buildPlayerNameField(index);
                 }),
                 
                 const SizedBox(height: 40),
 
-                // --- GÜNCELLENDİ: Buton stili ---
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF536dfe),
